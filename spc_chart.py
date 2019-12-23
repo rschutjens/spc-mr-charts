@@ -93,3 +93,10 @@ plt.show()
 # Post your answer in the comment, or ask questions for hints.
 # 
 # Lastly, another way to use the moving range chart is to monitor the measurement system for consistency. In about 2 weeks I should have enough data to show the results for the measurement sysem used to monitor the process above.
+
+# %%
+df.loc[1:, 'MR A'] = xmr_A.data_mr
+df.loc[1:, 'MR B'] = xmr_B.data_mr
+
+df
+
