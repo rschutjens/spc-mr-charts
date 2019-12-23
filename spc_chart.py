@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
+from scipy.stats import probplot
 
 from stats import d2, D3, D4
 from stats import XMR
@@ -99,4 +100,22 @@ df.loc[1:, 'MR A'] = xmr_A.data_mr
 df.loc[1:, 'MR B'] = xmr_B.data_mr
 
 df
+
+# %% [markdown]
+# Most standard control charting depend on the data being normally distributed. Even with this quite limited data set we can get a good idea with a quantile plot. 
+# 
+# To create the quantile plots for A and B above I used the scipy.stats packages. The probplot function by default compares it to quantiles from the standard normal distribution. If the data is has a normal distribution it should show up as a straight line. Both follow a straight line, so there doesn't seem to be any issue assuming normally distributed data at this moment. 
+# 
+# You can get an estimate for the average value from the point where the theoretical quantile is equal to 0. From the slope you can get an estimate of the standard deviation. You can compare these values with those calculated from the data directly.
+
+# %%
+fig, axes = plt.subplots(nrows=1, ncols=2, sharey=True, tight_layout=True)
+axes = axes.flatten()
+
+probplot(df['A'], plot=axes[0])
+axes[0].set_title('A')
+probplot(df['B'], plot=axes[1])
+axes[1].set_title('B')
+
+df.describe()
 
