@@ -47,19 +47,3 @@ class XMR:
 
         axes = self.plot_chart(self.data_mr, self.index[1:], mrbar, ucl, lcl, axes, **kwargs)
         return axes
-
-
-# moving range function that takes in a pandas series.
-# could also be used in case data is too large to handle as a single array
-# but don't see the use for now.
-def moving_range2(column):
-    """ returns the moving range for a column of data as a new series """
-    series = pd.Series()
-    series.name = 'MR ' + column.name
-
-    for i in range(column.shape[0]-1):
-        index = column.index[i+1]
-        value = abs(column.loc[i+1] - column.loc[i])
-        series.loc[index] = value
-
-    return series
