@@ -9,6 +9,7 @@ verify_ssl = true
 pandas = "*"
 matplotlib = "*"
 jupyterlab = "*"
+scipy = "*"
 
 [requires]
 python_version = "3.7"
