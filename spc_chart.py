@@ -20,13 +20,12 @@ register_matplotlib_converters()
 # 
 # Even though there are lots of software packages that can be used to do calculations for control charting, it is very straight forward to implement yourself. See this small repository I made with some code to create moving range charts. The repository also goes into some more details about the charting and the data.
 # 
-# The control limits for the $\bar{X}$ chart are calculated as followed:
+# The control limits for the $X$ chart are calculated as followed:
 # $$ \overline{X} = \frac{\sum_{i=1}^n{x_i}}{n} $$
 # $$ UCL = \overline{X} + 3 \frac{\overline{MR}}{d_2} $$
 # $$ LCL = \overline{X} - 3 \frac{\overline{MR}}{d_2} $$
 # 
-# Here $x_i$ are the measurement values, $d_2=1.128$ is a statistical constant, the center line is given by $\bar{X}$, the upper limit line has value $UCL$ and lower limit line has value $LCL$. Below it shows how to calculate $\bar{MR}$ and the control limits for the $MR$ chart. 
-# 
+# Here $x_i$ are the measurement values, $d_2=1.128$ is a statistical constant, the center line is given by $\overline{X}$, the upper control limit line has value $UCL$ and lower control limit line has value $LCL$. Below it shows how to calculate $\overline{MR}$ and the control limits for the $MR$ chart. 
 # $$ \overline{MR} = \frac{\sum_{i=2}^n{MR_i}}{n-1} $$
 # $$ MR_i=|x_i-x_{i-1}| $$
 # $$ UCL = D_4 \overline{MR} $$
