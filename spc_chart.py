@@ -21,16 +21,16 @@ register_matplotlib_converters()
 # Even though there are lots of software packages that can be used to do calculations for control charting, it is very straight forward to implement yourself. See this small repository I made with some code to create moving range charts. The repository also goes into some more details about the charting and the data.
 # 
 # The control limits for the $\bar{X}$ chart are calculated as followed:
-# $$ \bar{X} = \frac{\sum_{i=1}^n{x_i}}{n} $$
-# $$ UCL = \bar{X} + 3 \frac{\bar{MR}}{d_2} $$
-# $$ LCL = \bar{X} - 3 \frac{\bar{MR}}{d_2} $$
+# $$ \overline{X} = \frac{\sum_{i=1}^n{x_i}}{n} $$
+# $$ UCL = \overline{X} + 3 \frac{\overline{MR}}{d_2} $$
+# $$ LCL = \overline{X} - 3 \frac{\overline{MR}}{d_2} $$
 # 
 # Here $x_i$ are the measurement values, $d_2=1.128$ is a statistical constant, the center line is given by $\bar{X}$, the upper limit line has value $UCL$ and lower limit line has value $LCL$. Below it shows how to calculate $\bar{MR}$ and the control limits for the $MR$ chart. 
 # 
-# $$ \bar{MR} = \frac{\sum_{i=2}^n{MR_i}}{n-1} $$
+# $$ \overline{MR} = \frac{\sum_{i=2}^n{MR_i}}{n-1} $$
 # $$ MR_i=|x_i-x_{i-1}| $$
-# $$ UCL = D_4 \bar{MR} $$
-# $$ LCL = D_3 \bar{MR} $$
+# $$ UCL = D_4 \overline{MR} $$
+# $$ LCL = D_3 \overline{MR} $$
 # 
 # $D_3=0$, and $D_4=3.267$ are statistical constants.
 
