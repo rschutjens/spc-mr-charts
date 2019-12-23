@@ -18,7 +18,7 @@ register_matplotlib_converters()
 # 
 # One of the easiest ways to start monitor a process is a moving range chart, especially if you have no prior data or knowledge of a process. Besides that, many processes do not allow for grouping up results for samples, so single measurements are the natural way to track it. Moving range charts are also used in many complicated processes as one part of their process control. It is also an introduction to more complicated charting like EWMA, or feedback in engineering control.
 # 
-# Even though there are lots of software packages that can be used to do calculations for control charting, it is very straight forward to implement yourself. See this small repository I made with some code to produce the figures for this post. Feel free to take a look and use for yourself. There is also a bit more information on calculating the limits.
+# Even though there are lots of software packages that can be used to do calculations for control charting, it is very straight forward to implement yourself. See this small repository I made with some code to create moving range charts. The repository also goes into some more details about the charting and the data.
 # 
 # The control limits for the $\bar{X}$ chart are calculated as followed:
 # $$
@@ -70,7 +70,7 @@ ax[1].set_title('B')
 plt.show()
 
 # %% [markdown]
-# The charts above are two control charts, A dnd B, that follow the same process, with measurements done almost daily. I've set up the control charts next to each other and used the same ranges for the vertical and horizontal axes so it is easier to compare. Both charts behave the same, this is even more clear by looking at the figure below where both are plotted in the same figure.
+# The charts above are two control charts, named A and B, that follow the same process, with measurements done almost daily. I've set up the control charts next to each other and used the same ranges for the vertical and horizontal axes so it is easier to compare. Both charts behave the same, this is more clear by plotting them in the same figure.
 
 # %%
 axes = df.plot(x='date', y='A', marker='o', )
