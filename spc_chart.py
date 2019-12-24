@@ -114,3 +114,13 @@ axes[1].set_title('B')
 
 df.describe()
 
+
+# %%
+fig, axes = plt.subplots(nrows=1, ncols=2, sharey=True, tight_layout=True)
+axes = axes.flatten()
+
+results = probplot(df['MR A'][1:], plot=axes[0])
+axes[0].set_title('MR A')
+probplot(df['MR B'][1:], plot=axes[1])
+axes[1].set_title('MR B')
+
