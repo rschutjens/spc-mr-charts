@@ -129,3 +129,38 @@ axes[1].set_title('B')
 
 df.describe()
 
+
+# ## Difference Chart
+# 
+# measurements A and B are taken before and after the process. This shows the loss during the process is predictable and stable. 
+# 
+# An issue that does come up is the granularity of the measurements, there are only 5 different values for the values of A-B. This is a limitation of the mmeasurement system that only has a resolution of 0.2. Nevertheless there are at least 5 values between the limits on the range chart, so the granularity shouldn't be effecting the ability to get an estimate of the average range. For a detailed discussion see the chapter on Chunky Data in EMP III, by D. Wheeler.
+# 
+# Unfortunately I do not have the ability to increase the number of digits displayed on the measurement system to reduce the granularity. Neither would try to increase the difference between A and B work out. So that would mean investing in a better measurement system. 
+
+# In[18]:
+
+
+df['A-B'] = df['A'] - df['B']
+xmr_diff = XMR(df['A-B'].values, index=df['date'].values)
+
+
+# In[19]:
+
+
+fig, axes = plt.subplots(nrows=2, ncols=1, sharex=True, tight_layout=True)
+ax = axes.flatten()
+
+xmr_diff.xchart(ax[0])
+xmr_diff.mrchart(ax[1])
+
+ax[0].xaxis.set_major_locator(mdates.WeekdayLocator()) # major ticks every start of week
+ax[0].xaxis.set_minor_locator(mdates.DayLocator()) # minor ticks every day
+ax[0].xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
+plt.setp(ax[1].get_xticklabels(), rotation=45)
+ax[0].set_ylabel('X')
+ax[1].set_ylabel('MR')
+ax[0].set_title('A - B')
+
+plt.show()
+
