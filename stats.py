@@ -31,11 +31,15 @@ class XMR:
         axes.axhline(lcl, **kwargs)
         return axes
 
-    def xchart(self, axes=None, **kwargs):
-        xbar = np.mean(self.data)
+    def xlimits(self):
         mrbar = np.mean(self.data_mr)
-        ucl = xbar + 3*mrbar/d2 
+        xbar = np.mean(self.data)
+        ucl = xbar + 3*mrbar/d2
         lcl = xbar - 3*mrbar/d2
+        return xbar, ucl, lcl
+
+    def xchart(self, axes=None, **kwargs):
+        xbar, ucl, lcl = self.xlimits()
 
         axes = self.plot_chart(self.data, self.index, xbar, ucl, lcl, axes, **kwargs)  
         return axes
