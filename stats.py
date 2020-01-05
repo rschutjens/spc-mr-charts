@@ -40,10 +40,14 @@ class XMR:
         axes = self.plot_chart(self.data, self.index, xbar, ucl, lcl, axes, **kwargs)  
         return axes
 
-    def mrchart(self, axes=None, **kwargs):
+    def mrlimits(self):
         mrbar = np.mean(self.data_mr)
         ucl = D4*mrbar
         lcl = D3*mrbar
+        return mrbar, ucl, lcl
+
+    def mrchart(self, axes=None, **kwargs):
+        mrbar, ucl, lcl = self.mrlimits()
 
         axes = self.plot_chart(self.data_mr, self.index[1:], mrbar, ucl, lcl, axes, **kwargs)
         return axes
