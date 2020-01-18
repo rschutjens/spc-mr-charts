@@ -44,21 +44,6 @@ class XMR:
         axes = self.plot_chart(self.data, self.index, xbar, ucl, lcl, axes, **kwargs)  
         return axes
 
-    @staticmethod
-    def out_of_control_limits(data, index, ucl, lcl):
-
-        if not isinstance(data, list):
-            data = list(data)
-        if not isinstance(index, list):
-            index = list(index)
-        
-        ooc_points = []
-        ooc_index = []
-        for i,point in enumerate(data):
-            if point < lcl or point > ucl:
-                ooc_points.append(data.pop(i))
-                ooc_index.append(index.pop(i))
-        return ooc_points, ooc_index, data, index
 
     def mrlimits(self, data):
         mrbar = np.mean(data)
