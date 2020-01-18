@@ -60,32 +60,21 @@ class XMR:
                 ooc_index.append(index.pop(i))
         return ooc_points, ooc_index, data, index
 
-    def mrlimits(self):
-        mrbar = np.mean(self.data_mr)
+    def mrlimits(self, data):
+        mrbar = np.mean(data)
         ucl = D4*mrbar
         lcl = D3*mrbar
+
+        ooc = (data<lcl) | (data>ucl)
+        while any(ooc):
+            data = data[~ooc]
+            mrbar, ucl, lcl = self.mrlimits(data)
+            ooc = (data<lcl) | (data>ucl)
+
         return mrbar, ucl, lcl
 
     def mrchart(self, axes=None, **kwargs):
-        mrbar, ucl, lcl = self.mrlimits()
-        data = self.data_mr
-        index = self.index[1:]
-        ooc = (data<lcl) | (data>ucl)
-        ooc_points = data[ooc]
-        ooc_index = index[ooc]
-
-        while any(ooc):
-            data = data[~ooc]
-            index = index[~ooc]
-            mrbar = np.mean(data)
-            ucl = D4*mrbar
-            lcl = D3*mrbar
-            ooc = (data<lcl) | (data>ucl)
-            ooc_points = np.append(ooc_points, data[ooc])
-            ooc_index = np.append(ooc_index, index[ooc])
-
+        mrbar, ucl, lcl = self.mrlimits(self.data_mr)
         axes = self.plot_chart(self.data_mr, self.index[1:], mrbar, ucl, lcl, axes, **kwargs)
-        axes.scatter(x=ooc_index, y=ooc_points, zorder=10, marker='X', color='red')
-        print(ooc_points)
-        print(ooc_index)
+
         return axes
