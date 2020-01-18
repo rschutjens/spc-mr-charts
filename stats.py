@@ -32,7 +32,7 @@ class XMR:
         return axes
 
     def xlimits(self):
-        mrbar = np.mean(self.data_mr)
+        mrbar,_,_ = self.mrlimits(self.data_mr)
         xbar = np.mean(self.data)
         ucl = xbar + 3*mrbar/d2
         lcl = xbar - 3*mrbar/d2
