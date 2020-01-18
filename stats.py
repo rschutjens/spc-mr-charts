@@ -59,7 +59,14 @@ class XMR:
         return mrbar, ucl, lcl
 
     def mrchart(self, axes=None, **kwargs):
-        mrbar, ucl, lcl = self.mrlimits(self.data_mr)
-        axes = self.plot_chart(self.data_mr, self.index[1:], mrbar, ucl, lcl, axes, **kwargs)
+        data = self.data_mr
+        index = self.index[1:]
+        mrbar, ucl, lcl = self.mrlimits(data)
+
+        axes = self.plot_chart(data, index, mrbar, ucl, lcl, axes, **kwargs)
+        
+        ooc = (data<lcl) | (data>ucl)
+        if any(ooc):
+            axes.scatter(x=index[ooc], y=data[ooc], marker='o', color='red', zorder=10)
 
         return axes
