@@ -40,8 +40,14 @@ class XMR:
 
     def xchart(self, axes=None, **kwargs):
         xbar, ucl, lcl = self.xlimits()
+        data = self.data
+        index = self.index
 
         axes = self.plot_chart(self.data, self.index, xbar, ucl, lcl, axes, **kwargs)  
+
+        ooc = (data<lcl) | (data>ucl)
+        if any(ooc):
+            axes.scatter(x=index[ooc], y=data[ooc], marker='o', color='red', zorder=10)
         return axes
 
 
@@ -64,7 +70,7 @@ class XMR:
         mrbar, ucl, lcl = self.mrlimits(data)
 
         axes = self.plot_chart(data, index, mrbar, ucl, lcl, axes, **kwargs)
-        
+
         ooc = (data<lcl) | (data>ucl)
         if any(ooc):
             axes.scatter(x=index[ooc], y=data[ooc], marker='o', color='red', zorder=10)
