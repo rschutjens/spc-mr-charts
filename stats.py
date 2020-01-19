@@ -31,19 +31,48 @@ class XMR:
         axes.axhline(lcl, **kwargs)
         return axes
 
-    def xchart(self, axes=None, **kwargs):
+    def xlimits(self):
+        mrbar,_,_ = self.mrlimits(self.data_mr)
         xbar = np.mean(self.data)
-        mrbar = np.mean(self.data_mr)
-        ucl = xbar + 3*mrbar/d2 
+        ucl = xbar + 3*mrbar/d2
         lcl = xbar - 3*mrbar/d2
+        return xbar, ucl, lcl
+
+    def xchart(self, axes=None, **kwargs):
+        xbar, ucl, lcl = self.xlimits()
+        data = self.data
+        index = self.index
 
         axes = self.plot_chart(self.data, self.index, xbar, ucl, lcl, axes, **kwargs)  
+
+        ooc = (data<lcl) | (data>ucl)
+        if any(ooc):
+            axes.scatter(x=index[ooc], y=data[ooc], marker='o', color='red', zorder=10)
         return axes
 
-    def mrchart(self, axes=None, **kwargs):
-        mrbar = np.mean(self.data_mr)
+
+    def mrlimits(self, data):
+        mrbar = np.mean(data)
         ucl = D4*mrbar
         lcl = D3*mrbar
 
-        axes = self.plot_chart(self.data_mr, self.index[1:], mrbar, ucl, lcl, axes, **kwargs)
+        ooc = (data<lcl) | (data>ucl)
+        while any(ooc):
+            data = data[~ooc]
+            mrbar, ucl, lcl = self.mrlimits(data)
+            ooc = (data<lcl) | (data>ucl)
+
+        return mrbar, ucl, lcl
+
+    def mrchart(self, axes=None, **kwargs):
+        data = self.data_mr
+        index = self.index[1:]
+        mrbar, ucl, lcl = self.mrlimits(data)
+
+        axes = self.plot_chart(data, index, mrbar, ucl, lcl, axes, **kwargs)
+
+        ooc = (data<lcl) | (data>ucl)
+        if any(ooc):
+            axes.scatter(x=index[ooc], y=data[ooc], marker='o', color='red', zorder=10)
+
         return axes
